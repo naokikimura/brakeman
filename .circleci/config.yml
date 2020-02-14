@@ -61,6 +61,16 @@ jobs:
       - run:
           name: Upload coverage results to Code Climate
           command: "./tmp/cc-test-reporter upload-coverage -i ./tmp/codeclimate.json"
+  sample-junit-report:
+    docker:
+      - image: circleci/ruby:latest
+    steps:
+      - checkout
+      - run: bundle check || bundle install
+      - run: mkdir -p ./reports/brakeman
+      - run: ./bin/brakeman -f junit -o ./reports/brakeman/test-results.xml ./test/apps/rails4
+      - store_test_results:
+          path: ./reports
 workflows:
   version: 2
   tests:
@@ -73,3 +83,4 @@ workflows:
       - upload-coverage:
           requires:
             - test-2-3
+      - sample-junit-report
