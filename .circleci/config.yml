@@ -89,4 +89,4 @@ workflows:
             - test-2-3
       - sample-junit-report
       - descar-brakeman/execute:
-          analysis-arguments: "./test/apps/rails4 -A"
+          analysis-arguments: "./test/apps/rails4"
