@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+  descar-brakeman: naokikimura/dscar-brakeman@dev:0.0.0
+
 jobs:
   default: &default
     docker:
@@ -84,3 +88,5 @@ workflows:
           requires:
             - test-2-3
       - sample-junit-report
+      - descar-brakeman/execute:
+          analysis-arguments: "./test/apps/rails4 -A"
